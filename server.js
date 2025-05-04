@@ -13,10 +13,10 @@ const app = express();
 const http = require('http').createServer(app);
 const io = new Server(http);
 
-let target = "A-1B-1A-1C-1A"; // hadi hizyada;
+let target = "I-1c-1L-1u-1D"; // hadi hizyada;
 target = target.split("-1");
 target = target.join("");
-let brand = "A-1B-1A-1C-1A"; // hadi hizyada;
+let brand = "I-1c-1L-1u-1D"; // hadi hizyada;
 brand = brand.split("-1");
 brand = brand.join("");
 
